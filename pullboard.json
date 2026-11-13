@@ -1,5 +1,5 @@
 {
-  "gate": "",
+  "gate": "node app/scripts/check.mjs",
   "spec": "SPEC.md",
   "practice": "DOCTRINE.md",
   "worktrees": "inside",
