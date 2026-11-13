@@ -12,5 +12,6 @@ Write each requirement as one row under its section, in this format. The fence k
 ```
 
 ## G · Goals: what the client asked for
+- G1 [approved, must] Build a responsive anonymous posting website using React, a Flask JSON API, and PostgreSQL. Visitors can publish text posts without accounts and browse newest posts; posts expose no author identity. Include input validation, loading and error states, and local setup instructions. | gate: review
 
 ## K · Constraints
