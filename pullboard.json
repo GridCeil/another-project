@@ -1,5 +1,6 @@
 {
   "gate": "node app/scripts/check.mjs",
+  "affectedTests": "node --test",
   "spec": "SPEC.md",
   "practice": "DOCTRINE.md",
   "worktrees": "inside",
