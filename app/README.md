@@ -2,6 +2,8 @@
 
 A responsive anonymous text feed built with React, Flask, and PostgreSQL. No accounts or public author identities. Readers can publish thoughts up to 1,000 Unicode characters, browse newest first, and load earlier posts.
 
+The API trims leading and trailing whitespace before validating the 1–1,000 Unicode code point limit and storing a post. Whitespace-only posts are rejected; internal spacing and line breaks are preserved. The browser counter counts the current draft, including surrounding whitespace.
+
 ## Run with Docker
 
 Install Docker with Compose, then from this `app` directory:

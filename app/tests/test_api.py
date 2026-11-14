@@ -61,6 +61,24 @@ class PostApiTests(unittest.TestCase):
         self.assertEqual(self.client.post("/api/posts", data="not json", content_type="application/json").status_code, 400)
         self.assertEqual(self.client.post("/api/posts", json={"body": "x" * 9000}).status_code, 413)
 
+    def test_normalization_precedes_length_validation_and_persistence(self):
+        content = "🌱" * 1000
+        response = self.client.post(
+            "/api/posts",
+            data=json.dumps({"body": " \n\t" + content + "\t "}, ensure_ascii=False),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json["body"], content)
+        rejected = self.client.post(
+            "/api/posts",
+            data=json.dumps({"body": " " + content + "x "}, ensure_ascii=False),
+            content_type="application/json",
+        )
+        self.assertEqual(rejected.status_code, 400)
+        stored = create_app(self.url).test_client().get("/api/posts").json["posts"]
+        self.assertEqual(stored, [response.json])
+
     def test_unicode_boundary_and_sql_content_are_plain_text(self):
         content = "🌱" * 1000
         self.assertEqual(self.client.post("/api/posts", json={"body": content}, content_type="application/json").status_code, 413)
