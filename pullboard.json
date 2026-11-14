@@ -1,6 +1,10 @@
 {
   "gate": "node app/scripts/check.mjs",
   "affectedTests": "node --test",
+  "check": {
+    "install": "npm ci --prefix app --offline",
+    "timeout": "5m"
+  },
   "spec": "SPEC.md",
   "practice": "DOCTRINE.md",
   "worktrees": "inside",
